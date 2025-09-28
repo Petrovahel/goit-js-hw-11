@@ -14,39 +14,40 @@ const lightbox = new SimpleLightbox(".gallery a", {
 export function createGallery(images) {
   clearGallery();
 
+  const fragment = document.createDocumentFragment();
+
   images.forEach(img => {
     const li = document.createElement("li");
     li.classList.add("gallery-item");
 
     const link = document.createElement("a");
-    link.href = img.largeImageURL; 
+    link.href = img.largeImageURL;
     link.classList.add("gallery-link");
 
     const image = document.createElement("img");
     image.src = img.webformatURL;
-    image.alt = img.tags;        
+    image.alt = img.tags;
     image.classList.add("gallery-image");
 
     link.appendChild(image);
     li.appendChild(link);
 
     const info = document.createElement("div");
-info.classList.add("image-info");
-info.innerHTML = `
-  <div class="info-item"><span class="label">Likes</span><span class="value">${img.likes}</span></div>
-  <div class="info-item"><span class="label">Views</span><span class="value">${img.views}</span></div>
-  <div class="info-item"><span class="label">Comments</span><span class="value">${img.comments}</span></div>
-  <div class="info-item"><span class="label">Downloads</span><span class="value">${img.downloads}</span></div>
-`;
-li.appendChild(info);
+    info.classList.add("image-info");
+    info.innerHTML = `
+      <div class="info-item"><span class="label">Likes</span><span class="value">${img.likes}</span></div>
+      <div class="info-item"><span class="label">Views</span><span class="value">${img.views}</span></div>
+      <div class="info-item"><span class="label">Comments</span><span class="value">${img.comments}</span></div>
+      <div class="info-item"><span class="label">Downloads</span><span class="value">${img.downloads}</span></div>
+    `;
+    li.appendChild(info);
 
-
-    gallery.appendChild(li);
+    fragment.appendChild(li);
   });
 
+  gallery.appendChild(fragment); 
   lightbox.refresh();
 }
-
 
 
 export function clearGallery() {
